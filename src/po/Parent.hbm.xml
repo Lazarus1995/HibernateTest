@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="po.Parent" table="parent" schema="Hibernat">
+        <id name="pid" column="pid">
+            <generator class="increment"/>
+        </id>
+        <property name="pname" column="pname"/>
+        <set name="sons" inverse="true" cascade="all">
+            <key>
+                <column name="pid" not-null="true"/>
+            </key>
+            <one-to-many class="po.Sons"/>
+        </set>
+    </class>
+</hibernate-mapping>

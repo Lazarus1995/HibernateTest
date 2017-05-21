@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="po.Sons" table="sons" schema="Hibernate">
+        <id name="sid" column="sid">
+            <generator class="identity"/>
+        </id>
+        <many-to-one name="parent" class="po.Parent" fetch="select">
+            <column name="pid" not-null="true"/>
+        </many-to-one>
+        <property name="snmae" column="sname"/>
+    </class>
+</hibernate-mapping>
