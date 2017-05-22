@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="po.Stu" table="stu" schema="Hibernate">
+        <id name="sid" column="sid">
+            <generator class="assigned"/>
+        </id>
+        <property name="sname" column="sname"/>
+
+        <set name="tea" inverse="true" table="teastu" >
+            <key>
+                <column name="sid" not-null="true"/>
+            </key>
+            <many-to-many entity-name="po.Tea" >
+                <column name="tid" not-null="true"></column>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

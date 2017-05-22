@@ -3,9 +3,14 @@ package dao;
 import connect.HibernateSessionFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.junit.Test;
 import po.Parent;
 import po.Sons;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Qu on 2017/5/21.
@@ -68,6 +73,7 @@ public class manyToOne {
             p.setPname("C#");
             ((Sons)(p.getSons().toArray()[0])).setSnmae("MS");
             ((Sons)(p.getSons().toArray()[1])).setSnmae("AP");
+            session.update(p);
             transaction.commit();
         }catch(Exception e){
             e.printStackTrace();
@@ -76,5 +82,29 @@ public class manyToOne {
             HibernateSessionFactory.closeSession();
         }
     }
+
+    @Test
+    public void selectParent(){
+        Session session = HibernateSessionFactory.getSession();
+        try{
+           Query query=session.createQuery("from Parent as p ");
+            List<Parent> list= query.list();
+            for(Parent p:list){
+                System.out.println("father name is: "+p.getPname());
+                Set<Sons> s=p.getSons();
+                Iterator<Sons> it=s.iterator();
+                while(it.hasNext()){
+                    System.out.println("His sons'name are: "+it.next().getSnmae());
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+
+        }finally{
+            HibernateSessionFactory.closeSession();
+        }
+    }
+
+
 
 }
